@@ -1,12 +1,17 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactSlice';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "redux/operations";
+import { toast } from 'react-toastify';
 import css from './ContactForm.module.css';
+import { getContacts } from "redux/selectors";
 
 export const ContactForm = ({onSubmit}) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const { items } = useSelector(getContacts);
+  const contactsNames = items.map(contact => contact.name);
   const dispatch = useDispatch();
+
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -24,7 +29,17 @@ export const ContactForm = ({onSubmit}) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(addContact(name, number));
+    const newContact = {
+      name,
+      number,
+  };
+
+  if(contactsNames.includes(name)) {
+      toast.error(`${name} is already in contacts.`);
+      return;
+  } else {
+      dispatch(addContact(newContact));
+  }
     resetForm();
   };
 
@@ -34,7 +49,9 @@ export const ContactForm = ({onSubmit}) => {
   };
 
     return (
-      <form className={css.form} onSubmit={handleSubmit}>
+      <form
+        className={css.form}
+        onSubmit={handleSubmit}>
         <label>
           Name
           <input

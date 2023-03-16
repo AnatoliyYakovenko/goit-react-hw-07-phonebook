@@ -15,7 +15,7 @@ export const Filter = () => {
       <label className={css.labelFilter}>
         Filter
         <input
-          type="name"
+          type="text"
           value={filter}
           onChange={changeFilter}
           className={css.filterInput}
