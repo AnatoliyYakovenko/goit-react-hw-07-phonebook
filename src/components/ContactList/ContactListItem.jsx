@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import css from './ContactListItem.module.css';
 
 export const ContactListItem = ({
-  contact: { id, name, number },
+  contact: { id, name, phone },
 }) => {
   const dispatch = useDispatch();
 
@@ -15,7 +15,7 @@ export const ContactListItem = ({
     <li key={id} className={css.item}>
       <p className={css.contact}>
         {name}
-        <span className={css.numberSpan}>{number}</span>
+        <span className={css.numberSpan}>{phone}</span>
       </p>
       <button
         type="button"

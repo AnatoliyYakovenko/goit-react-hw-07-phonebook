@@ -19,7 +19,6 @@ export const ContactList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-
     return (
   <ul className={css.list}>
     {isLoading && <Loader />}

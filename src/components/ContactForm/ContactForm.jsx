@@ -7,7 +7,7 @@ import { getContacts } from "redux/selectors";
 
 export const ContactForm = ({onSubmit}) => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const { items } = useSelector(getContacts);
   const contactsNames = items.map(contact => contact.name);
   const dispatch = useDispatch();
@@ -19,8 +19,8 @@ export const ContactForm = ({onSubmit}) => {
       case 'name':
         setName(value);
         break;
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break;
         default:
           return;
@@ -31,7 +31,7 @@ export const ContactForm = ({onSubmit}) => {
     e.preventDefault();
     const newContact = {
       name,
-      number,
+      phone,
   };
 
   if(contactsNames.includes(name)) {
@@ -45,7 +45,7 @@ export const ContactForm = ({onSubmit}) => {
 
   const resetForm = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
     return (
@@ -66,13 +66,13 @@ export const ContactForm = ({onSubmit}) => {
           />
         </label>
         <label>
-          Number
+          Phone number
           <input
             className={css.inputNumber}
-            value={number}
+            value={phone}
             onChange={handleChange}
             type="tel"
-            name="number"
+            name="phone"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
